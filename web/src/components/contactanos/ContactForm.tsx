@@ -1,6 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   IconMapPin,
@@ -8,9 +11,16 @@ import {
   IconBrandWhatsapp,
   IconChevronDown,
   IconCheck,
+  IconSend,
 } from "@tabler/icons-react";
+import ReCAPTCHA from "react-google-recaptcha";
+import { contactSchema, type ContactSchemaType } from "@/schemas/contact.schema";
+import { FormAlert } from "@/ui/FormAlert";
+import { getEnvs } from "@/helpers/getEnvs";
 
-const services = [
+const { NEXT_PUBLIC_API_URL, NEXT_PUBLIC_RECAPTCHA_SITE_KEY } = getEnvs();
+
+const AFFAIRS = [
   "Construcción",
   "Decoración de interiores",
   "Acristalamiento",
@@ -19,15 +29,22 @@ const services = [
   "Techos de policarbonato",
 ];
 
-const ServiceSelect = ({ value, onChange }: { value: string; onChange: (val: string) => void }) => {
+// ─── AffairSelect ────────────────────────────────────────────────────────────
+const AffairSelect = ({
+  value,
+  onChange,
+  error,
+}: {
+  value: string;
+  onChange: (val: string) => void;
+  error?: string;
+}) => {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handler = (e: MouseEvent) => {
-      if (ref.current && !ref.current.contains(e.target as Node)) {
-        setOpen(false);
-      }
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
     };
     document.addEventListener("mousedown", handler);
     return () => document.removeEventListener("mousedown", handler);
@@ -35,9 +52,7 @@ const ServiceSelect = ({ value, onChange }: { value: string; onChange: (val: str
 
   return (
     <div className="flex flex-col gap-1 relative" ref={ref}>
-      <small className="tracking-[0.2em] uppercase text-black font-semibold">
-        Tipo de servicio
-      </small>
+      <small className="tracking-[0.2em] uppercase text-black font-semibold">Asunto</small>
 
       <button
         type="button"
@@ -45,7 +60,7 @@ const ServiceSelect = ({ value, onChange }: { value: string; onChange: (val: str
         className="flex items-center justify-between border-b border-border bg-transparent py-2 text-left focus:outline-none focus:border-accent transition-colors duration-200 group"
       >
         <span className={value ? "text-foreground" : "text-muted-foreground/50"}>
-          {value || "Seleccione un servicio"}
+          {value || "Seleccione un asunto"}
         </span>
         <motion.div
           animate={{ rotate: open ? 180 : 0 }}
@@ -56,6 +71,8 @@ const ServiceSelect = ({ value, onChange }: { value: string; onChange: (val: str
         </motion.div>
       </button>
 
+      {error && <small className="text-red-500">{error}</small>}
+
       <AnimatePresence>
         {open && (
           <motion.div
@@ -65,29 +82,29 @@ const ServiceSelect = ({ value, onChange }: { value: string; onChange: (val: str
             transition={{ duration: 0.2, ease: "easeOut" }}
             className="absolute top-full left-0 right-0 z-50 mt-1 bg-white rounded-xl shadow-lg border border-border overflow-hidden"
           >
-            {services.map((service, index) => (
+            {AFFAIRS.map((affair, index) => (
               <motion.button
-                key={service}
+                key={affair}
                 type="button"
                 initial={{ opacity: 0, y: -6 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.15, delay: index * 0.04 }}
                 onClick={() => {
-                  onChange(service);
+                  onChange(affair);
                   setOpen(false);
                 }}
                 className="w-full flex items-center justify-between px-4 py-3 text-left hover:bg-primary/5 transition-colors duration-150 group"
               >
                 <span
                   className={`transition-colors duration-150 ${
-                    value === service
+                    value === affair
                       ? "text-accent font-semibold"
                       : "text-foreground group-hover:text-accent"
                   }`}
                 >
-                  {service}
+                  {affair}
                 </span>
-                {value === service && <IconCheck size={16} className="text-accent" stroke={2} />}
+                {value === affair && <IconCheck size={16} className="text-accent" stroke={2} />}
               </motion.button>
             ))}
           </motion.div>
@@ -97,22 +114,62 @@ const ServiceSelect = ({ value, onChange }: { value: string; onChange: (val: str
   );
 };
 
+// ─── ContactForm ─────────────────────────────────────────────────────────────
 export const ContactForm = () => {
-  const [form, setForm] = useState({
-    nombre: "",
-    empresa: "",
-    telefono: "",
-    email: "",
-    servicio: "",
-    mensaje: "",
+  const [isLoading, setIsLoading] = useState(false);
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+  const [alert, setAlert] = useState<{
+    type: "success" | "error" | "warning";
+    message: string;
+  } | null>(null);
+
+  const recaptchaRef = useRef<ReCAPTCHA>(null);
+
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    watch,
+    reset,
+    formState: { errors },
+  } = useForm<ContactSchemaType>({
+    resolver: zodResolver(contactSchema),
+    defaultValues: {
+      fullName: "",
+      email: "",
+      company: "",
+      phone: "",
+      affair: "",
+      message: "",
+    },
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
+  const affairValue = watch("affair");
 
-  const handleSubmit = () => {
-    console.log(form);
+  const onSubmit = async (data: ContactSchemaType) => {
+    if (!captchaToken) {
+      setAlert({ type: "warning", message: "Por favor completa el captcha." });
+      return;
+    }
+
+    setIsLoading(true);
+    try {
+      const res = await fetch(`${NEXT_PUBLIC_API_URL}/enviar-contacto`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...data, captcha: captchaToken }),
+      });
+      if (!res.ok) throw new Error();
+      reset();
+      setAlert({ type: "success", message: "¡Mensaje enviado! Te contactaremos pronto." });
+    } catch {
+      setAlert({ type: "error", message: "Error al enviar el formulario. Intenta de nuevo." });
+    } finally {
+      setIsLoading(false);
+      recaptchaRef.current?.reset();
+      setCaptchaToken(null);
+      setTimeout(() => setAlert(null), 4000);
+    }
   };
 
   return (
@@ -129,67 +186,71 @@ export const ContactForm = () => {
           >
             <h3 className="text-accent mb-8">Solicita una cotización</h3>
 
-            <div className="flex flex-col gap-6">
-              {/* Fila 1 */}
+            <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">
+              {/* Fila 1 — Nombre + Empresa */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div className="flex flex-col gap-1">
                   <small className="tracking-[0.2em] uppercase text-black font-semibold">
                     Nombre completo
                   </small>
                   <input
-                    name="nombre"
-                    value={form.nombre}
-                    onChange={handleChange}
+                    {...register("fullName")}
                     placeholder="Juan Pérez"
                     className="border-b border-border bg-transparent py-2 text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:border-accent transition-colors"
                   />
+                  {errors.fullName && (
+                    <small className="text-red-500">{errors.fullName.message}</small>
+                  )}
                 </div>
+
                 <div className="flex flex-col gap-1">
                   <small className="tracking-[0.2em] uppercase text-black font-semibold">
                     Empresa
                   </small>
                   <input
-                    name="empresa"
-                    value={form.empresa}
-                    onChange={handleChange}
+                    {...register("company")}
                     placeholder="Constructora ABC"
                     className="border-b border-border bg-transparent py-2 text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:border-accent transition-colors"
                   />
+                  {errors.company && (
+                    <small className="text-red-500">{errors.company.message}</small>
+                  )}
                 </div>
               </div>
 
-              {/* Fila 2 */}
+              {/* Fila 2 — Teléfono + Email */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div className="flex flex-col gap-1">
                   <small className="tracking-[0.2em] uppercase text-black font-semibold">
                     Teléfono
                   </small>
                   <input
-                    name="telefono"
-                    value={form.telefono}
-                    onChange={handleChange}
+                    {...register("phone")}
                     placeholder="+51 900 000 000"
                     className="border-b border-border bg-transparent py-2 text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:border-accent transition-colors"
                   />
+                  {errors.phone && <small className="text-red-500">{errors.phone.message}</small>}
                 </div>
+
                 <div className="flex flex-col gap-1">
                   <small className="tracking-[0.2em] uppercase text-black font-semibold">
                     Email
                   </small>
                   <input
-                    name="email"
-                    value={form.email}
-                    onChange={handleChange}
+                    {...register("email")}
+                    type="email"
                     placeholder="correo@empresa.com"
                     className="border-b border-border bg-transparent py-2 text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:border-accent transition-colors"
                   />
+                  {errors.email && <small className="text-red-500">{errors.email.message}</small>}
                 </div>
               </div>
 
-              {/* Select custom */}
-              <ServiceSelect
-                value={form.servicio}
-                onChange={(val) => setForm({ ...form, servicio: val })}
+              {/* Affair Select */}
+              <AffairSelect
+                value={affairValue}
+                onChange={(val) => setValue("affair", val, { shouldValidate: true })}
+                error={errors.affair?.message}
               />
 
               {/* Mensaje */}
@@ -198,25 +259,54 @@ export const ContactForm = () => {
                   Mensaje
                 </small>
                 <textarea
-                  name="mensaje"
-                  value={form.mensaje}
-                  onChange={handleChange}
+                  {...register("message")}
                   placeholder="Cuéntanos sobre tu proyecto..."
                   rows={4}
                   className="border-b border-border bg-transparent py-2 text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:border-accent transition-colors resize-none"
                 />
+                {errors.message && <small className="text-red-500">{errors.message.message}</small>}
               </div>
 
-              <button
-                onClick={handleSubmit}
-                className="w-full py-4 bg-accent text-white font-semibold rounded-xl hover:bg-accent/90 transition-colors duration-200 tracking-widest uppercase"
-              >
-                Enviar Mensaje →
-              </button>
-            </div>
+              {/* Captcha + Botón */}
+              <div className="flex items-center justify-between flex-wrap gap-4">
+                <ReCAPTCHA
+                  ref={recaptchaRef}
+                  sitekey={NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
+                  onChange={(token: any) => setCaptchaToken(token)}
+                  onExpired={() => setCaptchaToken(null)}
+                />
+                <button
+                  type="submit"
+                  disabled={isLoading}
+                  className="flex items-center gap-2 w-full py-4 bg-accent text-white font-semibold rounded-xl hover:bg-accent/90 transition-colors duration-200 tracking-widest uppercase justify-center disabled:opacity-60"
+                >
+                  {isLoading ? (
+                    <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                  ) : (
+                    <>
+                      Enviar Mensaje <IconSend size={16} />
+                    </>
+                  )}
+                </button>
+              </div>
+
+              {/* Alert */}
+              <AnimatePresence>
+                {alert && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 8 }}
+                    transition={{ duration: 0.4 }}
+                  >
+                    <FormAlert type={alert.type} message={alert.message} />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </form>
           </motion.div>
 
-          {/* Right — Mapa + Info */}
+          {/* Right — Mapa + Info (sin cambios) */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -230,7 +320,6 @@ export const ContactForm = () => {
               style={{ height: "300px" }}
             >
               <iframe
-                // src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3900.7!2d-77.0!3d-12.1!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTLCsDA2JzAwLjAiUyA3N8KwMDAnMDAuMCJX!5e0!3m2!1ses!2spe!4v1234567890"
                 src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1951.0213769983332!2d-77.09692935661519!3d-12.040577678338785!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9105cff4ad39792f%3A0xa16a63a7dc2bd65c!2sINVERSIONES%20GENERALES%20J%26R%20FLORES%20SAC!5e0!3m2!1ses!2spe!4v1776953194798!5m2!1ses!2spe"
                 width="100%"
                 height="100%"
