@@ -34,8 +34,8 @@ export const Header = () => {
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
 
-  const fetchServicios = useServiciosStore((s) => s.fetchAll);
-  const fetchProductos = useProductosStore((s) => s.fetchAll);
+  // const fetchServicios = useServiciosStore((s) => s.fetchAll);
+  // const fetchProductos = useProductosStore((s) => s.fetchAll);
 
   const { scrollY } = useScroll();
 
@@ -154,21 +154,22 @@ export const Header = () => {
 
                     <Link
                       href={link.href}
+                      // className="relative group flex flex-col items-center gap-0.5 py-5"
                       className="relative group flex flex-col items-center gap-0.5 py-5"
-                      onMouseEnter={
-                        link.href === "/servicios"
-                          ? fetchServicios
-                          : link.href === "/productos"
-                            ? fetchProductos
-                            : undefined
-                      }
-                      onTouchStart={
-                        link.href === "/servicios"
-                          ? fetchServicios
-                          : link.href === "/productos"
-                            ? fetchProductos
-                            : undefined
-                      }
+                      // onMouseEnter={
+                      //   link.href === "/servicios"
+                      //     ? fetchServicios
+                      //     : link.href === "/productos"
+                      //       ? fetchProductos
+                      //       : undefined
+                      // }
+                      // onTouchStart={
+                      //   link.href === "/servicios"
+                      //     ? fetchServicios
+                      //     : link.href === "/productos"
+                      //       ? fetchProductos
+                      //       : undefined
+                      // }
                     >
                       <span
                         className="font-semibold tracking-wide transition-colors duration-200"
@@ -242,14 +243,15 @@ export const Header = () => {
                     <Link
                       href={link.href}
                       onClick={() => setIsMenuOpen(false)}
-                      onTouchStart={
-                        link.href === "/servicios"
-                          ? fetchServicios
-                          : link.href === "/productos"
-                            ? fetchProductos
-                            : undefined
-                      }
+                      // onTouchStart={
+                      //   link.href === "/servicios"
+                      //     ? fetchServicios
+                      //     : link.href === "/productos"
+                      //       ? fetchProductos
+                      //       : undefined
+                      // }
                       className="flex items-center gap-3 font-medium px-6 py-3 transition-all duration-200"
+                      // className="flex items-center gap-3 font-medium px-6 py-3 transition-all duration-200"
                       style={{
                         color: isActive ? "#3637AE" : "#4B5563",
                         backgroundColor: isActive ? "#3637AE0D" : "transparent",

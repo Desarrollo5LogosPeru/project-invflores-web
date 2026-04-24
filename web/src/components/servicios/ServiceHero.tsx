@@ -4,12 +4,12 @@ import { useServiciosStore } from "@/store/servicios/servicios.store";
 import { getEnvs } from "@/helpers/getEnvs";
 
 export const ServiceHero = () => {
-  const { seccion01, loading, fetchAll } = useServiciosStore();
+  const { seccion01, loading /* fetchAll */ } = useServiciosStore();
   const { NEXT_PUBLIC_API_URL_BASE } = getEnvs();
 
-  useEffect(() => {
-    fetchAll();
-  }, []);
+  // useEffect(() => {
+  //   fetchAll();
+  // }, []);
 
   if (loading && !seccion01) return <ServiceHeroSkeleton />;
 

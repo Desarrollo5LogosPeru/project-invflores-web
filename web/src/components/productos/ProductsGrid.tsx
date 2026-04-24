@@ -116,7 +116,7 @@ const ProductCard = ({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-60px" }}
       transition={{ duration: 0.5, delay: index * 0.07 }}
-      className="mb-16 last:mb-0 scroll-mt-28"
+      className="mb-16 last:mb-0 scroll-mt-40"
     >
       {/* Fila superior: texto + imagen principal */}
       <div className="flex flex-col lg:flex-row gap-8 mb-4">

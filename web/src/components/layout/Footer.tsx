@@ -17,6 +17,7 @@ import { useProductosStore } from "@/store/productos/productos.store";
 import { Container } from "@/ui/Container";
 import LOGOWHITE from "@/assets/logo/LOGO-WHITE.png";
 import LogosPeruLogo from "@/assets/logo/LOGOSPERU-OFF.webp";
+import { useEffect } from "react";
 
 const navLinks = [
   { label: "Inicio", href: "/" },
@@ -30,7 +31,11 @@ const navLinks = [
 export const Footer = () => {
   const { nombre, telefono, email, facebook, tiktok, whatsapp, direccion, instagram } =
     useEmpresa();
-  const { seccion02Productos, loading } = useProductosStore();
+  const { seccion02Productos, loading, fetchAll } = useProductosStore();
+
+  useEffect(() => {
+    fetchAll();
+  }, []);
 
   const telefonos = Array.isArray(telefono) ? telefono : [telefono];
   const year = new Date().getFullYear();

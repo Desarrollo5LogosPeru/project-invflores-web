@@ -4,12 +4,12 @@ import { useProductosStore } from "@/store/productos/productos.store";
 import { getEnvs } from "@/helpers/getEnvs";
 
 export const ProductHero = () => {
-  const { seccion01, loading, fetchAll } = useProductosStore();
+  const { seccion01, loading /* fetchAll */ } = useProductosStore();
   const { NEXT_PUBLIC_API_URL_BASE } = getEnvs();
 
-  useEffect(() => {
-    fetchAll();
-  }, []);
+  // useEffect(() => {
+  //   fetchAll();
+  // }, []);
 
   if (loading && !seccion01) return <ProductHeroSkeleton />;
 
