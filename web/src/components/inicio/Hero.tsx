@@ -5,16 +5,19 @@ import { IconChevronLeft, IconChevronRight } from "@tabler/icons-react";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 
+import image01 from "@/assets/inicio/HERO01.webp";
+import image02 from "@/assets/inicio/HERO02.webp";
+
 const slides = [
   {
-    image: "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1920&q=80",
+    image: image01.src,
     titulo: "Liderando Proyectos con",
     destacado: "Excelencia y Precisión",
     descripcion:
       "Construcción, decoración y acristalamiento de alta calidad en todo el Perú. Transformamos visiones en estructuras sólidas y modernas.",
   },
   {
-    image: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1920&q=80",
+    image: image02.src,
     titulo: "Soluciones Integrales en",
     destacado: "Acristalamiento Moderno",
     descripcion:

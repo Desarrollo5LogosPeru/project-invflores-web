@@ -13,6 +13,7 @@ import {
 } from "@tabler/icons-react";
 import Link from "next/link";
 import { useEmpresa } from "@/store/empresa/empresa.store";
+import { useProductosStore } from "@/store/productos/productos.store";
 import { Container } from "@/ui/Container";
 import LOGOWHITE from "@/assets/logo/LOGO-WHITE.png";
 import LogosPeruLogo from "@/assets/logo/LOGOSPERU-OFF.webp";
@@ -26,27 +27,20 @@ const navLinks = [
   { label: "Contáctanos", href: "/contacto" },
 ];
 
-const servicios = [
-  "Construcción",
-  "Acristalamiento",
-  "Decoración de interiores",
-  "Fachadas de vidrio",
-  "Puertas y ventanas",
-  "Mantenimiento",
-];
-
 export const Footer = () => {
   const { nombre, telefono, email, facebook, tiktok, whatsapp, direccion, instagram } =
     useEmpresa();
+  const { seccion02Productos, loading } = useProductosStore();
+
   const telefonos = Array.isArray(telefono) ? telefono : [telefono];
   const year = new Date().getFullYear();
 
   return (
     <footer className="relative w-full overflow-hidden">
-      {/* ── Fondo degradé ── */}
+      {/* Fondo degradé */}
       <div className="absolute inset-0 bg-gradient-to-br from-accent via-accent/90 to-secondary/70" />
 
-      {/* ── Textura sutil ── */}
+      {/* Textura sutil */}
       <div
         className="absolute inset-0 opacity-5"
         style={{
@@ -55,7 +49,7 @@ export const Footer = () => {
         }}
       />
 
-      {/* ── Contenido principal ── */}
+      {/* Contenido principal */}
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -68,12 +62,10 @@ export const Footer = () => {
             {/* Col 1 — Logo + descripción */}
             <div className="flex flex-col gap-5">
               <img src={LOGOWHITE.src} alt="Logo" className="h-16 w-auto object-contain" />
-
               <p className="text-white leading-relaxed">
                 Más de 15 años transformando espacios con soluciones integrales en construcción,
                 decoración y acristalamiento en todo el Perú.
               </p>
-
               <div className="flex items-center gap-3">
                 {facebook && (
                   <Link
@@ -95,7 +87,6 @@ export const Footer = () => {
                     <IconBrandTiktok size={17} />
                   </Link>
                 )}
-
                 {instagram && (
                   <Link
                     href={instagram}
@@ -106,7 +97,6 @@ export const Footer = () => {
                     <IconBrandInstagram size={17} />
                   </Link>
                 )}
-
                 {whatsapp && (
                   <Link
                     href={`https://wa.me/${whatsapp}`}
@@ -142,18 +132,46 @@ export const Footer = () => {
               </ul>
             </div>
 
-            {/* Col 3 — Servicios */}
+            {/* Col 3 — Productos */}
             <div className="flex flex-col gap-4">
-              <h6 className="text-white font-bold tracking-wide">Servicios</h6>
+              <h6 className="text-white font-bold tracking-wide">Productos</h6>
               <div className="w-8 h-0.5 bg-secondary rounded-full" />
-              <ul className="flex flex-col gap-2.5">
-                {servicios.map((s) => (
-                  <li key={s} className="flex items-center gap-1.5 text-white">
-                    <IconChevronRight size={14} className="text-secondary shrink-0" />
-                    <p>{s}</p>
-                  </li>
-                ))}
-              </ul>
+
+              {loading && seccion02Productos.length === 0 ? (
+                // Skeleton
+                <ul className="flex flex-col gap-2.5 animate-pulse">
+                  {[1, 2, 3, 4, 5, 6].map((i) => (
+                    <li key={i} className="flex items-center gap-2">
+                      <div className="w-3 h-3 rounded-sm bg-white/20 shrink-0" />
+                      <div
+                        className="h-3 bg-white/20 rounded"
+                        style={{ width: `${70 + i * 5}%` }}
+                      />
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <ul className="flex flex-col gap-2.5">
+                  {/* {seccion02Productos.map((producto) => (
+                    <li key={producto.id} className="flex items-center gap-1.5 text-white">
+                      <IconChevronRight size={14} className="text-secondary shrink-0" />
+                      <p>{producto.title}</p>
+                    </li>
+                  ))} */}
+
+                  {seccion02Productos.map((producto) => (
+                    <li key={producto.id} className="flex items-center gap-1.5 text-white">
+                      <IconChevronRight size={14} className="text-secondary shrink-0" />
+                      <Link
+                        href={`/productos#producto-${producto.id}`}
+                        className="hover:text-secondary transition-colors duration-200"
+                      >
+                        <p>{producto.title}</p>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
 
             {/* Col 4 — Contacto */}
@@ -192,10 +210,10 @@ export const Footer = () => {
         </Container>
       </motion.div>
 
-      {/* ── Divisor ── */}
+      {/* Divisor */}
       <div className="relative z-10 w-full h-px bg-white/12" />
 
-      {/* ── Bottom bar ── */}
+      {/* Bottom bar */}
       <div className="relative z-10 py-5">
         <Container>
           <div className="flex flex-col sm:flex-row items-center justify-between gap-2">
@@ -208,7 +226,7 @@ export const Footer = () => {
                 href="https://www.logosperu.com.pe/?gad_source=1"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group inline-flex justify-center  items-center gap-1.5 hover:opacity-80 transition-opacity"
+                className="group inline-flex justify-center items-center gap-1.5 hover:opacity-80 transition-opacity"
                 title="Logos Perú - Agencia de Diseño"
               >
                 <img

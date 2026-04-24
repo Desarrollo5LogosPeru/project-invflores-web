@@ -4,6 +4,8 @@ import { motion } from "framer-motion";
 import { IconArrowRight } from "@tabler/icons-react";
 import Link from "next/link";
 
+import image from "@/assets/proyectos/PROY08.webp";
+
 export const SobreNosotros = () => {
   return (
     <section className="w-full py-20 bg-transparent">
@@ -74,9 +76,9 @@ export const SobreNosotros = () => {
           className="flex-1 w-full rounded-xl overflow-hidden border border-border shadow-sm"
         >
           <img
-            src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=900&q=80"
+            src={image.src}
             alt="Estructura metálica interior"
-            className="w-full h-72 md:h-80 object-cover grayscale"
+            className="w-full h-72 md:h-80 object-cover"
           />
         </motion.div>
       </div>

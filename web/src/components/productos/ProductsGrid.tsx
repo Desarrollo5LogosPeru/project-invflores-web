@@ -111,11 +111,12 @@ const ProductCard = ({
 
   return (
     <motion.div
+      id={`producto-${producto.id}`}
       initial={{ opacity: 0, y: 28 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-60px" }}
       transition={{ duration: 0.5, delay: index * 0.07 }}
-      className="mb-16 last:mb-0"
+      className="mb-16 last:mb-0 scroll-mt-28"
     >
       {/* Fila superior: texto + imagen principal */}
       <div className="flex flex-col lg:flex-row gap-8 mb-4">
@@ -202,6 +203,18 @@ const ProductCard = ({
 
 export const ProductsGrid = () => {
   const { seccion02, seccion02Productos, loading } = useProductosStore();
+
+  useEffect(() => {
+    if (loading || seccion02Productos.length === 0) return;
+    const hash = window.location.hash;
+    if (!hash) return;
+    const el = document.querySelector(hash);
+    if (el) {
+      setTimeout(() => {
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 300); // pequeño delay para que renderice primero
+    }
+  }, [loading, seccion02Productos]);
 
   return (
     <section className="w-full bg-transparent py-20">

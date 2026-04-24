@@ -1,5 +1,7 @@
 "use client";
 
+import image from "@/assets/proyectos/PROY02.webp";
+
 import { motion } from "framer-motion";
 
 export const NosotrosStory = () => {
@@ -16,11 +18,7 @@ export const NosotrosStory = () => {
             className="relative"
           >
             <div className="relative rounded-2xl overflow-hidden aspect-[16/9]">
-              <img
-                src="https://images.unsplash.com/photo-1587293852726-70cdb56c2866?w=800&q=80"
-                alt="Equipo J&R Flores"
-                className="w-full h-full object-cover"
-              />
+              <img src={image.src} alt="Equipo J&R Flores" className="w-full h-full object-cover" />
 
               {/* Badge dentro de la imagen */}
               <motion.div

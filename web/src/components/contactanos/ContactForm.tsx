@@ -338,11 +338,11 @@ export const ContactForm = () => {
                 </div>
                 <div>
                   <p className="text-accent font-semibold mb-1">Dirección</p>
-                  <p className="text-black">
-                    Jr. Los Cristales 123,
+                  <small className="text-black">
+                    Av. 1 de Mayo 295,
                     <br />
-                    Chorrillos, Lima - Perú
-                  </p>
+                    Carmen de La Legua - Reynoso 07006, Perú
+                  </small>
                 </div>
               </div>
 
@@ -352,11 +352,11 @@ export const ContactForm = () => {
                 </div>
                 <div>
                   <p className="text-accent font-semibold mb-1">Teléfonos</p>
-                  <p className="text-black">
+                  <small className="text-black">
                     951 338 531
                     <br />
                     973 718 240
-                  </p>
+                  </small>
                 </div>
               </div>
             </div>
