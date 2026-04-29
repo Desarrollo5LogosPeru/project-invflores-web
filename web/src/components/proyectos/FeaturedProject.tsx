@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import image from "@/assets/shared/NOSOTROSCTA.webp";
 
 export const FeaturedProject = () => {
   return (
@@ -16,9 +17,11 @@ export const FeaturedProject = () => {
           {/* Image */}
           <div className="relative h-72 lg:h-auto overflow-hidden">
             <img
-              src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1000&q=80"
+              src={image.src}
               alt="Torre Corporativa Platinum"
               className="w-full h-full object-cover"
+              fetchPriority="high"
+              loading="eager"
             />
           </div>
 

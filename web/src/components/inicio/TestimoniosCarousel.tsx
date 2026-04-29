@@ -99,9 +99,9 @@ export const TestimoniosCarousel = () => {
           <small className="block tracking-widest uppercase text-secondary font-semibold">
             Testimonios
           </small>
-          <h3 className="font-extrabold text-accent">
+          <h2 className="font-extrabold text-accent">
             Lo que dicen nuestros <span className="text-secondary">clientes</span>
-          </h3>
+          </h2>
         </motion.div>
 
         {/* Fades */}

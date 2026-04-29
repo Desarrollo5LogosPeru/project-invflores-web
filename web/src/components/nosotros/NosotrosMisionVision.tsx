@@ -36,7 +36,7 @@ export const NosotrosMisionVision = () => {
             <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-6">
               <IconTarget size={26} className="text-accent" stroke={1.5} />
             </div>
-            <h4 className="text-accent mb-4">Nuestra Misión</h4>
+            <h3 className="text-accent mb-4 h3-card">Nuestra Misión</h3>
             <p className="text-black leading-relaxed">
               Proveer soluciones integrales en construcción y acabados de cristal que superen las
               expectativas de nuestros clientes, garantizando durabilidad, seguridad y una estética
@@ -102,7 +102,7 @@ export const NosotrosMisionVision = () => {
             <div className="w-14 h-14 rounded-xl bg-secondary/10 flex items-center justify-center mb-6">
               <IconEye size={26} className="text-secondary" stroke={1.5} />
             </div>
-            <h4 className="text-accent mb-4">Nuestra Visión</h4>
+            <h3 className="text-accent mb-4 h3-card">Nuestra Visión</h3>
             <p className="text-black leading-relaxed">
               Ser reconocidos a nivel nacional como la empresa líder en innovación arquitectónica de
               vidrio, destacando por nuestra capacidad técnica, ética profesional y contribución al

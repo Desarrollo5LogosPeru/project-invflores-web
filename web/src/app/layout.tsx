@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+// import type { Metadata } from "next";
 import { montserrat, raleway } from "@/fonts";
 import "./globals.css";
 import { Header } from "@/components/layout/Header";
@@ -7,10 +7,10 @@ import { BackgroundPattern } from "@/components/layout/BackgroundPattern";
 import { FloatingWhatsApp } from "@/components/layout/FloatingWhatsApp";
 import { DataPrefetcher } from "@/components/layout/DataPrefetcher";
 
-export const metadata: Metadata = {
-  title: "Inversiones Flores SAC",
-  description: "Inversiones Flores SAC",
-};
+// export const metadata: Metadata = {
+//   title: "Inversiones Flores SAC",
+//   description: "Inversiones Flores SAC",
+// };
 
 export default function RootLayout({
   children,

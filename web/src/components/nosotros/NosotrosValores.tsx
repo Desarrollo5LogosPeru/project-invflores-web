@@ -58,7 +58,7 @@ export const NosotrosValores = () => {
                 className="flex flex-col"
               >
                 <Icon size={32} className="text-accent mb-5" stroke={1.5} />
-                <h5 className="text-accent mb-3">{valor.title}</h5>
+                <h3 className="text-accent mb-3 subtitle1">{valor.title}</h3>
                 <p className="text-black">{valor.description}</p>
               </motion.div>
             );

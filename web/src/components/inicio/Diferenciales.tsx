@@ -84,7 +84,7 @@ export const Diferenciales = () => {
               className="flex flex-col gap-4 px-8 py-8 border-r border-border last:border-r-0"
             >
               <span className="text-accent">{item.icon}</span>
-              <h6 className="font-bold text-secondary">{item.titulo}</h6>
+              <h3 className="font-bold text-secondary subtitle2">{item.titulo}</h3>
               <p className="text-black">{item.descripcion}</p>
             </motion.div>
           ))}

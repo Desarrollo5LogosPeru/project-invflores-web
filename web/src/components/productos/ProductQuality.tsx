@@ -81,7 +81,7 @@ export const ProductQuality = () => {
                   className="bg-white/10 border border-white/15 rounded-2xl p-6 hover:bg-white/15 transition-colors duration-300"
                 >
                   <Icon size={28} className="text-primary mb-4" stroke={1.5} />
-                  <h5 className="text-white mb-2">{item.title}</h5>
+                  <h3 className="text-white mb-2 subtitle1">{item.title}</h3>
                   <p className="text-white text-sm">{item.description}</p>
                 </motion.div>
               );
