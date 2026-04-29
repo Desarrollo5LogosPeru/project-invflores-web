@@ -40,7 +40,7 @@ export const Portafolio = () => {
     <section className="w-full py-20 bg-transparent">
       <div style={{ paddingLeft: PADDING, paddingRight: PADDING }}>
         {/* Título */}
-        <motion.h3
+        <motion.h2
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -48,7 +48,7 @@ export const Portafolio = () => {
           className="text-center font-extrabold text-accent mb-10"
         >
           Portafolio de Excelencia
-        </motion.h3>
+        </motion.h2>
 
         {/* Filas */}
         <div className="flex flex-col gap-4">

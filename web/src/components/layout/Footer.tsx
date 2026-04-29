@@ -117,7 +117,7 @@ export const Footer = () => {
 
             {/* Col 2 — Navegación */}
             <div className="flex flex-col gap-4">
-              <h6 className="text-white font-bold tracking-wide">Navegación</h6>
+              <p className="text-white font-bold tracking-wide subtitle2">Navegación</p>
               <div className="w-8 h-0.5 bg-secondary rounded-full" />
               <ul className="flex flex-col gap-2.5">
                 {navLinks.map((link) => (
@@ -139,7 +139,7 @@ export const Footer = () => {
 
             {/* Col 3 — Productos */}
             <div className="flex flex-col gap-4">
-              <h6 className="text-white font-bold tracking-wide">Productos</h6>
+              <p className="text-white font-bold tracking-wide subtitle2">Productos</p>
               <div className="w-8 h-0.5 bg-secondary rounded-full" />
 
               {loading && seccion02Productos.length === 0 ? (
@@ -181,7 +181,7 @@ export const Footer = () => {
 
             {/* Col 4 — Contacto */}
             <div className="flex flex-col gap-4">
-              <h6 className="text-white font-bold tracking-wide">Contacto</h6>
+              <p className="text-white font-bold tracking-wide subtitle2">Contacto</p>
               <div className="w-8 h-0.5 bg-secondary rounded-full" />
               <div className="flex flex-col gap-4">
                 {telefonos.map((tel) => (

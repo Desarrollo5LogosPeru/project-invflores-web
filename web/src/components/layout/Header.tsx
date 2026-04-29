@@ -14,8 +14,8 @@ import { useEmpresa } from "@/store/empresa/empresa.store";
 import LOGOCOLOR from "@/assets/logo/LOGO-COLOR.png";
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
-import { useServiciosStore } from "@/store/servicios/servicios.store";
-import { useProductosStore } from "@/store/productos/productos.store";
+// import { useServiciosStore } from "@/store/servicios/servicios.store";
+// import { useProductosStore } from "@/store/productos/productos.store";
 
 const navLinks = [
   { label: "Inicio", href: "/" },
@@ -46,9 +46,13 @@ export const Header = () => {
   const telefonos = Array.isArray(telefono) ? telefono : [telefono];
 
   const redes = [
-    { href: facebook, icon: <IconBrandFacebook size={14} />, show: !!facebook },
-    { href: tiktok, icon: <IconBrandTiktok size={14} />, show: !!tiktok },
-    { href: instagram, icon: <IconBrandInstagram size={14} />, show: !!instagram },
+    { href: facebook, icon: <IconBrandFacebook size={14} aria-hidden="true" />, show: !!facebook },
+    { href: tiktok, icon: <IconBrandTiktok size={14} aria-hidden="true" />, show: !!tiktok },
+    {
+      href: instagram,
+      icon: <IconBrandInstagram size={14} aria-hidden="true" />,
+      show: !!instagram,
+    },
   ].filter((r) => r.show);
 
   useEffect(() => {
@@ -86,7 +90,7 @@ export const Header = () => {
             ))}
           </div>
 
-          {redes.length > 0 && (
+          {/* {redes.length > 0 && (
             <div className="flex items-center gap-3">
               {redes.map(({ href, icon }) => (
                 <Link
@@ -99,6 +103,31 @@ export const Header = () => {
                   {icon}
                 </Link>
               ))}
+            </div>
+          )} */}
+
+          {redes.length > 0 && (
+            <div className="flex items-center gap-3">
+              {redes.map(({ href, icon }) => {
+                let socialName = "";
+                if (href.includes("facebook")) socialName = "Facebook";
+                else if (href.includes("tiktok")) socialName = "TikTok";
+                else if (href.includes("instagram")) socialName = "Instagram";
+
+                return (
+                  <Link
+                    key={href}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-white/90 hover:text-white transition-opacity"
+                    aria-label={socialName}
+                    title={socialName}
+                  >
+                    {icon}
+                  </Link>
+                );
+              })}
             </div>
           )}
         </div>

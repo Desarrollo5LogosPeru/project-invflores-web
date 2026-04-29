@@ -67,7 +67,7 @@ export const ProductFAQ = () => {
                   onClick={() => toggle(index)}
                   className="w-full flex items-center justify-between px-6 py-5 text-left"
                 >
-                  <h6 className="text-accent">{faq.title}</h6>
+                  <h3 className="text-accent subtitle2">{faq.title}</h3>
                   <motion.div
                     animate={{ rotate: isOpen ? 180 : 0 }}
                     transition={{ duration: 0.3 }}

@@ -7,6 +7,8 @@ import { useState, useEffect } from "react";
 
 import image01 from "@/assets/inicio/HERO01.webp";
 import image02 from "@/assets/inicio/HERO02.webp";
+import image03 from "@/assets/shared/CTABANNERINICIO.webp";
+import image04 from "@/assets/shared/HERO04.webp";
 
 const slides = [
   {
@@ -24,14 +26,14 @@ const slides = [
       "Instalamos vidrios y cristales con los más altos estándares de calidad. Diseño, funcionalidad y elegancia en cada proyecto.",
   },
   {
-    image: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1920&q=80",
+    image: image03.src,
     titulo: "15 Años Construyendo",
     destacado: "Confianza y Calidad",
     descripcion:
       "Más de una década ejecutando proyectos de construcción y decoración a nivel nacional con experiencia, compromiso y precisión.",
   },
   {
-    image: "https://images.unsplash.com/photo-1560185007-cde436f6a4d0?w=1920&q=80",
+    image: image04.src,
     titulo: "Decoración que",
     destacado: "Transforma Espacios",
     descripcion:
@@ -62,7 +64,7 @@ export const Hero = () => {
       style={{ height: "100vh" }}
     >
       {/* ── Imagen de fondo ── */}
-      <AnimatePresence mode="sync">
+      {/* <AnimatePresence mode="sync">
         <motion.div
           key={`bg-${current}`}
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
@@ -72,6 +74,32 @@ export const Hero = () => {
           exit={{ opacity: 0, scale: 0.98 }}
           transition={{ duration: 1.1, ease: "easeInOut" }}
         />
+      </AnimatePresence> */}
+
+      <AnimatePresence mode="sync">
+        <motion.div
+          key={`bg-${current}`}
+          className="absolute inset-0"
+          initial={{ opacity: 0, scale: 1.04 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.98 }}
+          transition={{ duration: 1.1, ease: "easeInOut" }}
+        >
+          {current === 0 ? (
+            <img
+              src={image01.src}
+              alt="Ventanas y Mamparas Acústicas PVC en Lima"
+              fetchPriority="high"
+              loading="eager"
+              className="absolute inset-0 w-full h-full object-cover object-center"
+            />
+          ) : (
+            <div
+              className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+              style={{ backgroundImage: `url('${slide.image}')` }}
+            />
+          )}
+        </motion.div>
       </AnimatePresence>
 
       {/* ── Overlay degradé ── */}
@@ -81,16 +109,20 @@ export const Hero = () => {
       <button
         onClick={() => goTo((current - 1 + slides.length) % slides.length)}
         className="absolute left-12 bottom-12 z-20 w-10 h-10 rounded-full border border-white/40 bg-white/10 hover:bg-white/25 flex items-center justify-center text-white transition-all duration-200"
+        aria-label="Anterior imagen"
+        title="Anterior"
       >
-        <IconChevronLeft size={20} />
+        <IconChevronLeft size={20} aria-hidden="true" />
       </button>
 
       {/* ── Flecha derecha ── */}
       <button
         onClick={() => goTo((current + 1) % slides.length)}
         className="absolute right-12 bottom-12 z-20 w-10 h-10 rounded-full border border-white/40 bg-white/10 hover:bg-white/25 flex items-center justify-center text-white transition-all duration-200"
+        aria-label="Siguiente imagen"
+        title="Siguiente"
       >
-        <IconChevronRight size={20} />
+        <IconChevronRight size={20} aria-hidden="true" />
       </button>
 
       {/* ── Contenido centrado ── */}
@@ -99,21 +131,34 @@ export const Hero = () => {
         style={{ paddingLeft: PADDING, paddingRight: PADDING }}
       >
         <div className="max-w-3xl flex flex-col items-center gap-6">
-          {/* Título */}
+          {/* ── Badge h1 SEO ── */}
+          <motion.div
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.4 }}
+            className="flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/30 px-4 py-1.5 rounded-full"
+          >
+            <span className="w-2 h-2 rounded-full bg-secondary animate-pulse shrink-0" />
+            <h1 className="h1-badge font-semibold tracking-widest uppercase text-white">
+              Ventanas y Mamparas Acústicas PVC en Lima
+            </h1>
+          </motion.div>
+
+          {/* ── Título slider → h2 ── */}
           <AnimatePresence mode="wait">
-            <motion.h1
+            <motion.h2
               key={`titulo-${current}`}
               initial={{ y: 32, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: -24, opacity: 0 }}
               transition={{ duration: 0.55, ease: "easeOut" }}
-              className="text-white font-extrabold leading-tight"
+              className="hero-title text-white font-extrabold leading-tight"
             >
               {slide.titulo} <span className="text-secondary">{slide.destacado}</span>
-            </motion.h1>
+            </motion.h2>
           </AnimatePresence>
 
-          {/* Descripción */}
+          {/* ── Descripción ── */}
           <AnimatePresence mode="wait">
             <motion.p
               key={`desc-${current}`}
@@ -127,7 +172,7 @@ export const Hero = () => {
             </motion.p>
           </AnimatePresence>
 
-          {/* CTAs */}
+          {/* ── CTAs ── */}
           <motion.div
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
@@ -157,12 +202,15 @@ export const Hero = () => {
             <button
               key={i}
               onClick={() => goTo(i)}
-              className="transition-all duration-300 rounded-full"
+              // className="transition-all duration-300 rounded-full"
+              className="transition-all duration-300 rounded-full p-2"
               style={{
                 width: i === current ? "28px" : "8px",
                 height: "8px",
                 background: i === current ? "#5AC7FF" : "rgba(255,255,255,0.4)",
               }}
+              aria-label={`Ir a imagen ${i + 1} de ${slides.length}`}
+              title={`Imagen ${i + 1}`}
             />
           ))}
         </div>

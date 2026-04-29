@@ -3,9 +3,10 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { useWhatsapp } from "@/hooks/shared/useWhatsapp";
+import image from "@/assets/shared/NOSOTROSCTA.webp";
 
 export const NosotrosCTA = () => {
-  const { numero, handleClick } = useWhatsapp(); // Asumiendo que tu hook tiene 'numero'
+  const { numero, handleClick } = useWhatsapp();
 
   const proyectoMessage =
     "Hola, quiero iniciar un proyecto con sus servicios. ¿Podrían brindarme más información?";
@@ -23,15 +24,14 @@ export const NosotrosCTA = () => {
           className="relative overflow-hidden rounded-3xl"
           style={{ minHeight: "320px" }}
         >
-          {/* Imagen con parallax fixed */}
+          {/* Contenedor parallax con Tailwind */}
           <div
-            className="absolute inset-0 z-0"
+            className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
             style={{
-              backgroundImage:
-                "url(https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1600&q=80)",
+              backgroundImage: `url(${image.src})`,
+              backgroundAttachment: "fixed",
               backgroundSize: "cover",
               backgroundPosition: "center",
-              backgroundAttachment: "fixed",
             }}
           />
 

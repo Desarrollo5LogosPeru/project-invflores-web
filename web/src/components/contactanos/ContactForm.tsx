@@ -184,7 +184,7 @@ export const ContactForm = () => {
             transition={{ duration: 0.6 }}
             className="bg-white rounded-2xl p-8 md:p-10 shadow-sm border border-border"
           >
-            <h3 className="text-accent mb-8">Solicita una cotización</h3>
+            <h2 className="text-accent mb-8 h2-card">Solicita una cotización</h2>
 
             <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">
               {/* Fila 1 — Nombre + Empresa */}

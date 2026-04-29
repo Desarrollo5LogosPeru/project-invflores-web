@@ -67,7 +67,7 @@ export const ServiceProcess = () => {
               </div>
 
               {/* Título */}
-              <h4 className="text-accent mb-2">{item.title}</h4>
+              <h3 className="text-accent mb-2 h3-card">{item.title}</h3>
 
               {/* Descripción */}
               {/* <p className="text-black max-w-[180px]">{item.description}</p> */}

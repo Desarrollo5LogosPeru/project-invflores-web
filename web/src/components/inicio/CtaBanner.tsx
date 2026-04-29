@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { IconBrandWhatsapp } from "@tabler/icons-react";
 import { useEmpresa } from "@/store/empresa/empresa.store";
+import image from "@/assets/shared/CTABANNERINICIO.webp";
 
 const PADDING = "max(1.5rem, calc((100vw - 80rem) / 2 + 1.5rem))";
 
@@ -16,26 +17,22 @@ export const CtaBanner = () => {
     offset: ["start end", "end start"],
   });
 
-  // Parallax: imagen se mueve más lento que el scroll
   const y = useTransform(scrollYProgress, [0, 1], ["-15%", "15%"]);
 
   return (
     <section ref={ref} className="relative w-full overflow-hidden py-20">
-      {/* Imagen con parallax */}
-      <motion.div
-        className="absolute inset-0 bg-cover bg-center"
-        style={{
-          backgroundImage:
-            "url('https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1920&q=80')",
-          y,
-          scale: 1.3,
-        }}
+      {/* ✅ Usando img en lugar de background-image */}
+      <motion.img
+        src={image.src}
+        alt="Contacto y proyectos de construcción"
+        className="absolute inset-0 w-full h-full object-cover"
+        style={{ y, scale: 1.3 }}
+        fetchPriority="high"
+        loading="eager"
       />
 
-      {/* Overlay accent */}
       <div className="absolute inset-0 bg-accent/85" />
 
-      {/* Contenido */}
       <div
         className="relative z-10 h-full flex flex-col items-center justify-center text-center gap-5"
         style={{ paddingLeft: PADDING, paddingRight: PADDING }}
