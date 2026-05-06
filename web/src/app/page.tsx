@@ -7,14 +7,14 @@ import { TestimoniosCarousel } from "@/components/inicio/TestimoniosCarousel";
 import { type Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Ventanas y Mamparas Acústicas PVC en Lima",
+  title: "Ventanas y mamparas acusticas PVC en Lima",
   description:
-    "¿Ruido en casa? Instalamos ventanas y mamparas acústicas PVC en Lima. +15 años de experiencia, materiales premium y garantía total.",
+    "¿Ruido en casa? Instalamos ventanas y mamparas acusticas PVC en Lima. +15 años de experiencia, materiales premium y garantía total.",
 
   openGraph: {
-    title: "Ventanas y Mamparas Acústicas PVC en Lima",
+    title: "Ventanas y mamparas acusticas PVC en Lima",
     description:
-      "¿Ruido en casa? Instalamos ventanas y mamparas acústicas PVC en Lima. +15 años de experiencia, materiales premium y garantía total.",
+      "¿Ruido en casa? Instalamos ventanas y mamparas acusticas PVC en Lima. +15 años de experiencia, materiales premium y garantía total.",
     url: "https://inversionesfloressac.com",
     siteName: "Inversiones Generales J&R Flores SAC",
     images: [
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
 
   twitter: {
     card: "summary_large_image",
-    title: "Ventanas y Mamparas Acústicas PVC en Lima",
+    title: "Ventanas y mamparas Acusticas PVC en Lima",
     description:
       "¿Ruido en casa? Instalamos ventanas y mamparas acústicas PVC en Lima. +15 años de experiencia, materiales premium y garantía total.",
     images: ["https://inversionesfloressac.com/HERO01.webp"],
