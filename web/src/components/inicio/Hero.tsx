@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
@@ -13,10 +14,10 @@ import image04 from "@/assets/shared/HERO04.webp";
 const slides = [
   {
     image: image01.src,
-    titulo: "Liderando Proyectos con",
-    destacado: "Excelencia y Precisión",
+    titulo: "Ventanas Antiruido y",
+    destacado: "Vidrio Antiruido en Lima",
     descripcion:
-      "Construcción, decoración y acristalamiento de alta calidad en todo el Perú. Transformamos visiones en estructuras sólidas y modernas.",
+      "Instalamos ventanas antiruido y vidrio antiruido para casas, oficinas y departamentos. Reducimos el ruido exterior hasta en un 95%. Cotiza sin compromiso.",
   },
   {
     image: image02.src,
@@ -44,6 +45,44 @@ const slides = [
 const PADDING = "max(1.5rem, calc((100vw - 80rem) / 2 + 1.5rem))";
 const INTERVAL = 5000;
 
+const heroSchema = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  name: "Inversiones Generales J&R Flores SAC",
+  description:
+    "Especialistas en ventanas antiruido, vidrio antiruido, mamparas de vidrio y aluminio, y puertas de vidrio templado en Lima, Perú.",
+  url: "https://inversionesfloressac.com",
+  image: "https://inversionesfloressac.com/HERO01.webp",
+  priceRange: "$$",
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Lima",
+    addressCountry: "PE",
+  },
+  knowsAbout: [
+    "Ventanas antiruido",
+    "Vidrio antiruido",
+    "Mamparas de vidrio",
+    "Mamparas de vidrio y aluminio",
+    "Puertas de vidrio templado",
+    "Fachadas de vidrio",
+    "Acristalamiento moderno",
+  ],
+  hasOfferCatalog: {
+    "@type": "OfferCatalog",
+    name: "Servicios de Acristalamiento",
+    itemListElement: slides.map((slide, index) => ({
+      "@type": "Offer",
+      position: index + 1,
+      itemOffered: {
+        "@type": "Service",
+        name: slide.destacado,
+        description: slide.descripcion,
+      },
+    })),
+  },
+};
+
 export const Hero = () => {
   const [current, setCurrent] = useState(0);
 
@@ -59,12 +98,17 @@ export const Hero = () => {
   const slide = slides[current];
 
   return (
-    <section
-      className="relative w-full overflow-hidden flex items-center justify-center"
-      style={{ height: "100vh" }}
-    >
-      {/* ── Imagen de fondo ── */}
-      {/* <AnimatePresence mode="sync">
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(heroSchema) }}
+      />
+      <section
+        className="relative w-full overflow-hidden flex items-center justify-center"
+        style={{ height: "100vh" }}
+      >
+        {/* ── Imagen de fondo ── */}
+        {/* <AnimatePresence mode="sync">
         <motion.div
           key={`bg-${current}`}
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
@@ -76,145 +120,159 @@ export const Hero = () => {
         />
       </AnimatePresence> */}
 
-      <AnimatePresence mode="sync">
-        <motion.div
-          key={`bg-${current}`}
-          className="absolute inset-0"
-          initial={{ opacity: 0, scale: 1.04 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.98 }}
-          transition={{ duration: 1.1, ease: "easeInOut" }}
+        <AnimatePresence mode="sync">
+          <motion.div
+            key={`bg-${current}`}
+            className="absolute inset-0"
+            initial={{ opacity: 0, scale: 1.04 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.98 }}
+            transition={{ duration: 1.1, ease: "easeInOut" }}
+          >
+            {current === 0 ? (
+              <img
+                src={image01.src}
+                alt="Ventanas y Mamparas Acústicas PVC en Lima"
+                fetchPriority="high"
+                loading="eager"
+                className="absolute inset-0 w-full h-full object-cover object-center"
+              />
+            ) : (
+              <div
+                className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+                style={{ backgroundImage: `url('${slide.image}')` }}
+              />
+            )}
+          </motion.div>
+        </AnimatePresence>
+
+        {/* ── Overlay degradé ── */}
+        <div className="absolute inset-0 bg-gradient-to-br from-accent/30 via-accent/50 to-secondary/20" />
+
+        {/* ── Flecha izquierda ── */}
+        <button
+          onClick={() => goTo((current - 1 + slides.length) % slides.length)}
+          className="absolute left-12 bottom-12 z-20 w-10 h-10 rounded-full border border-white/40 bg-white/10 hover:bg-white/25 flex items-center justify-center text-white transition-all duration-200"
+          aria-label="Anterior imagen"
+          title="Anterior"
         >
-          {current === 0 ? (
-            <img
-              src={image01.src}
-              alt="Ventanas y Mamparas Acústicas PVC en Lima"
-              fetchPriority="high"
-              loading="eager"
-              className="absolute inset-0 w-full h-full object-cover object-center"
-            />
-          ) : (
-            <div
-              className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-              style={{ backgroundImage: `url('${slide.image}')` }}
-            />
-          )}
-        </motion.div>
-      </AnimatePresence>
+          <IconChevronLeft size={20} aria-hidden="true" />
+        </button>
 
-      {/* ── Overlay degradé ── */}
-      <div className="absolute inset-0 bg-gradient-to-br from-accent/30 via-accent/50 to-secondary/20" />
+        {/* ── Flecha derecha ── */}
+        <button
+          onClick={() => goTo((current + 1) % slides.length)}
+          className="absolute right-12 bottom-12 z-20 w-10 h-10 rounded-full border border-white/40 bg-white/10 hover:bg-white/25 flex items-center justify-center text-white transition-all duration-200"
+          aria-label="Siguiente imagen"
+          title="Siguiente"
+        >
+          <IconChevronRight size={20} aria-hidden="true" />
+        </button>
 
-      {/* ── Flecha izquierda ── */}
-      <button
-        onClick={() => goTo((current - 1 + slides.length) % slides.length)}
-        className="absolute left-12 bottom-12 z-20 w-10 h-10 rounded-full border border-white/40 bg-white/10 hover:bg-white/25 flex items-center justify-center text-white transition-all duration-200"
-        aria-label="Anterior imagen"
-        title="Anterior"
-      >
-        <IconChevronLeft size={20} aria-hidden="true" />
-      </button>
-
-      {/* ── Flecha derecha ── */}
-      <button
-        onClick={() => goTo((current + 1) % slides.length)}
-        className="absolute right-12 bottom-12 z-20 w-10 h-10 rounded-full border border-white/40 bg-white/10 hover:bg-white/25 flex items-center justify-center text-white transition-all duration-200"
-        aria-label="Siguiente imagen"
-        title="Siguiente"
-      >
-        <IconChevronRight size={20} aria-hidden="true" />
-      </button>
-
-      {/* ── Contenido centrado ── */}
-      <div
-        className="relative z-10 flex flex-col items-center justify-center text-center gap-6 w-full h-full"
-        style={{ paddingLeft: PADDING, paddingRight: PADDING }}
-      >
-        <div className="max-w-3xl flex flex-col items-center gap-6">
-          {/* ── Badge h1 SEO ── */}
-          <motion.div
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.4 }}
-            className="flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/30 px-4 py-1.5 rounded-full"
-          >
-            <span className="w-2 h-2 rounded-full bg-secondary animate-pulse shrink-0" />
-            <h1 className="h1-badge font-semibold tracking-widest uppercase text-white">
-              Ventanas y Mamparas Acústicas PVC en Lima
-            </h1>
-          </motion.div>
-
-          {/* ── Título slider → h2 ── */}
-          <AnimatePresence mode="wait">
-            <motion.h2
-              key={`titulo-${current}`}
-              initial={{ y: 32, opacity: 0 }}
+        {/* ── Contenido centrado ── */}
+        <div
+          className="relative z-10 flex flex-col items-center justify-center text-center gap-6 w-full h-full"
+          style={{ paddingLeft: PADDING, paddingRight: PADDING }}
+        >
+          <div className="max-w-3xl flex flex-col items-center gap-6">
+            {/* ── Badge h1 SEO ── */}
+            <motion.div
+              initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
-              exit={{ y: -24, opacity: 0 }}
-              transition={{ duration: 0.55, ease: "easeOut" }}
-              className="hero-title text-white font-extrabold leading-tight"
+              transition={{ duration: 0.4 }}
+              className="flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/30 px-4 py-1.5 rounded-full"
             >
-              {slide.titulo} <span className="text-secondary">{slide.destacado}</span>
-            </motion.h2>
-          </AnimatePresence>
+              <span className="w-2 h-2 rounded-full bg-secondary animate-pulse shrink-0" />
+              <h1 className="h1-badge font-semibold tracking-widest uppercase text-white">
+                Ventanas y Mamparas Acústicas PVC en Lima
+              </h1>
+            </motion.div>
 
-          {/* ── Descripción ── */}
-          <AnimatePresence mode="wait">
-            <motion.p
-              key={`desc-${current}`}
-              initial={{ y: 24, opacity: 0 }}
+            {/* ── Título slider → h2 ── */}
+            <AnimatePresence mode="wait">
+              <motion.h2
+                key={`titulo-${current}`}
+                initial={{ y: 32, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                exit={{ y: -24, opacity: 0 }}
+                transition={{ duration: 0.55, ease: "easeOut" }}
+                className="hero-title text-white font-extrabold leading-tight"
+              >
+                {slide.titulo}{" "}
+                <span className="text-secondary">{slide.destacado}</span>
+              </motion.h2>
+            </AnimatePresence>
+
+            {/* ── Descripción ── */}
+            <AnimatePresence mode="wait">
+              <motion.p
+                key={`desc-${current}`}
+                initial={{ y: 24, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                exit={{ y: -16, opacity: 0 }}
+                transition={{ duration: 0.5, delay: 0.08, ease: "easeOut" }}
+                className="text-white"
+              >
+                {slide.descripcion}
+              </motion.p>
+            </AnimatePresence>
+
+            {/* ── CTAs ── */}
+            <motion.div
+              initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
-              exit={{ y: -16, opacity: 0 }}
-              transition={{ duration: 0.5, delay: 0.08, ease: "easeOut" }}
-              className="text-white"
+              transition={{ duration: 0.5, delay: 0.3 }}
+              className="flex items-center justify-center gap-4 flex-wrap"
             >
-              {slide.descripcion}
-            </motion.p>
-          </AnimatePresence>
+              <Link
+                href="/servicios"
+                className="bg-accent text-accent-foreground px-6 py-2.5 font-semibold hover:bg-accent/80 transition-colors duration-200"
+                style={{ fontFamily: "var(--font-raleway)" }}
+              >
+                Nuestros Servicios
+              </Link>
+              <Link
+                href="/contacto"
+                className="border border-white text-white px-6 py-2.5 font-semibold hover:bg-white hover:text-accent transition-colors duration-200"
+                style={{ fontFamily: "var(--font-raleway)" }}
+              >
+                Contáctanos
+              </Link>
+            </motion.div>
+          </div>
 
-          {/* ── CTAs ── */}
-          <motion.div
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            className="flex items-center justify-center gap-4 flex-wrap"
-          >
-            <Link
-              href="/servicios"
-              className="bg-accent text-accent-foreground px-6 py-2.5 font-semibold hover:bg-accent/80 transition-colors duration-200"
-              style={{ fontFamily: "var(--font-raleway)" }}
-            >
-              Nuestros Servicios
-            </Link>
-            <Link
-              href="/contacto"
-              className="border border-white text-white px-6 py-2.5 font-semibold hover:bg-white hover:text-accent transition-colors duration-200"
-              style={{ fontFamily: "var(--font-raleway)" }}
-            >
-              Contáctanos
-            </Link>
-          </motion.div>
+          {/* ── Dots ── */}
+          <div className="absolute bottom-8 flex items-center gap-2.5 z-20">
+            {slides.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => goTo(i)}
+                // className="transition-all duration-300 rounded-full"
+                className="transition-all duration-300 rounded-full p-2"
+                style={{
+                  width: i === current ? "28px" : "8px",
+                  height: "8px",
+                  background:
+                    i === current ? "#5AC7FF" : "rgba(255,255,255,0.4)",
+                }}
+                aria-label={`Ir a imagen ${i + 1} de ${slides.length}`}
+                title={`Imagen ${i + 1}`}
+              />
+            ))}
+          </div>
         </div>
-
-        {/* ── Dots ── */}
-        <div className="absolute bottom-8 flex items-center gap-2.5 z-20">
-          {slides.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => goTo(i)}
-              // className="transition-all duration-300 rounded-full"
-              className="transition-all duration-300 rounded-full p-2"
-              style={{
-                width: i === current ? "28px" : "8px",
-                height: "8px",
-                background: i === current ? "#5AC7FF" : "rgba(255,255,255,0.4)",
-              }}
-              aria-label={`Ir a imagen ${i + 1} de ${slides.length}`}
-              title={`Imagen ${i + 1}`}
-            />
-          ))}
+        {/* Texto invisible para SEO con todas las keywords */}
+        <div className="sr-only">
+          <p>
+            Especialistas en ventanas antiruido, vidrio antiruido, mamparas de
+            vidrio para sala y fachada, mamparas de vidrio y aluminio, puertas
+            de vidrio templado. Expertos en Lima, Perú. Ofrecemos soluciones en
+            acristalamiento moderno, fachadas de vidrio, decoración de
+            interiores y construcción con materiales premium. Más de 15 años de
+            experiencia.
+          </p>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 };

@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import { useState } from "react";
@@ -12,19 +13,57 @@ import proy08 from "@/assets/proyectos/PROY08.webp";
 import proy09 from "@/assets/proyectos/PROY09.webp";
 
 const portfolio = [
-  { id: 1, src: proy04.src, alt: "Proyecto Exitoso" },
-  { id: 2, src: proy05.src, alt: "Proyecto Exitoso" },
-  { id: 3, src: proy06.src, alt: "Proyecto Exitoso" },
-  { id: 4, src: proy07.src, alt: "Proyecto Exitoso" },
-  { id: 5, src: proy08.src, alt: "Proyecto Exitoso" },
-  { id: 6, src: proy09.src, alt: "Proyecto Exitoso" },
+  {
+    id: 1,
+    src: proy04.src,
+    alt: "Ventanas antiruido instaladas en edificio residencial - Inversiones Flores",
+    titulo: "Ventanas Antiruido en Edificio Residencial",
+  },
+  {
+    id: 2,
+    src: proy05.src,
+    alt: "Mamparas de vidrio para sala de estar moderna - Proyecto en Lima",
+    titulo: "Mamparas de Vidrio para Sala",
+  },
+  {
+    id: 3,
+    src: proy06.src,
+    alt: "Puertas de vidrio templado para oficina corporativa - Inversiones Flores",
+    titulo: "Puertas de Vidrio Templado en Oficina",
+  },
+  {
+    id: 4,
+    src: proy07.src,
+    alt: "Mamparas de vidrio y aluminio para sala de reuniones - Proyecto Perú",
+    titulo: "Mamparas de Vidrio y Aluminio",
+  },
+  {
+    id: 5,
+    src: proy08.src,
+    alt: "Vidrio antiruido para fachada de local comercial - Inversiones Flores",
+    titulo: "Vidrio Antiruido en Fachada",
+  },
+  {
+    id: 6,
+    src: proy09.src,
+    alt: "Puertas de vidrio templado para vivienda particular - Instalación en Lima",
+    titulo: "Puertas de Vidrio Templado Residencial",
+  },
 ];
 
 const PADDING = "max(1.5rem, calc((100vw - 80rem) / 2 + 1.5rem))";
 
 const filas = [
-  { grande: portfolio[0], pequenas: [portfolio[1], portfolio[2]], reverse: false },
-  { grande: portfolio[3], pequenas: [portfolio[4], portfolio[5]], reverse: true },
+  {
+    grande: portfolio[0],
+    pequenas: [portfolio[1], portfolio[2]],
+    reverse: false,
+  },
+  {
+    grande: portfolio[3],
+    pequenas: [portfolio[4], portfolio[5]],
+    reverse: true,
+  },
 ];
 
 interface Item {
@@ -155,7 +194,10 @@ export const Portafolio = () => {
                   transition={{ delay: 0.15 }}
                   className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/70 to-transparent px-6 py-5 flex items-center gap-2"
                 >
-                  <IconCircleCheckFilled size={22} className="text-green-400 flex-shrink-0" />
+                  <IconCircleCheckFilled
+                    size={22}
+                    className="text-green-400 flex-shrink-0"
+                  />
                   <p className="text-green-400 font-medium">{selected.alt}</p>
                 </motion.div>
               </motion.div>

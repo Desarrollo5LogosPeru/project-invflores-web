@@ -3,14 +3,16 @@ import { ContactHero } from "@/components/contactanos/ContactHero";
 import { type Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Contáctanos | Inversiones Generales J&R Flores SAC",
+  title:
+    "Contacto para Ventanas Antiruido y Mamparas de Vidrio | Inversiones Flores",
   description:
-    "Comunícate con nosotros para cotizar tus proyectos de construcción, acristalamiento y decoración en Lima y todo Perú. Respondemos en 24 horas.",
+    "Solicita cotización para ventanas antiruido, vidrio antiruido, mamparas de vidrio para sala y fachada, mamparas de vidrio y aluminio, y puertas de vidrio templado en Lima y Perú.",
 
   openGraph: {
-    title: "Contáctanos | Inversiones Generales J&R Flores SAC",
+    title:
+      "Contacto para Ventanas Antiruido y Mamparas de Vidrio | Inversiones Flores",
     description:
-      "Comunícate con nosotros para cotizar tus proyectos de construcción, acristalamiento y decoración.",
+      "Solicita cotización para ventanas antiruido, mamparas de vidrio para sala y fachada, y puertas de vidrio templado en Lima y Perú.",
     url: "https://inversionesfloressac.com/contactanos",
     siteName: "Inversiones Generales J&R Flores SAC",
     locale: "es_PE",
@@ -19,8 +21,10 @@ export const metadata: Metadata = {
 
   twitter: {
     card: "summary_large_image",
-    title: "Contáctanos | Inversiones Generales J&R Flores SAC",
-    description: "Comunícate con nosotros para cotizar tus proyectos.",
+    title:
+      "Contacto para Ventanas Antiruido y Mamparas de Vidrio | Inversiones Flores",
+    description:
+      "Cotiza ventanas antiruido, mamparas de vidrio y puertas de vidrio templado en Lima.",
   },
 
   metadataBase: new URL("https://inversionesfloressac.com"),

@@ -4,17 +4,18 @@ import { Hero } from "@/components/inicio/Hero";
 import { Portafolio } from "@/components/inicio/Portafolio";
 import { SobreNosotros } from "@/components/inicio/SobreNosotros";
 import { TestimoniosCarousel } from "@/components/inicio/TestimoniosCarousel";
+import JsonLd from "@/components/SEO/JsonLd";
 import { type Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Ventanas y mamparas acusticas PVC en Lima",
+  title: "Ventanas Antiruido | Vidrio Antiruido | Mamparas y Puertas de Vidrio",
   description:
-    "¿Ruido en casa? Instalamos ventanas y mamparas acusticas PVC en Lima. +15 años de experiencia, materiales premium y garantía total.",
-
+    "Ventanas antiruido, vidrio antiruido, mamparas de vidrio para sala y fachada, mamparas de vidrio y aluminio, puertas de vidrio templado. Expertos en Lima.",
   openGraph: {
-    title: "Ventanas y mamparas acusticas PVC en Lima",
+    title:
+      "Ventanas Antiruido | Vidrio Antiruido | Mamparas y Puertas de Vidrio",
     description:
-      "¿Ruido en casa? Instalamos ventanas y mamparas acusticas PVC en Lima. +15 años de experiencia, materiales premium y garantía total.",
+      "Ventanas antiruido, vidrio antiruido, mamparas de vidrio para sala y fachada, mamparas de vidrio y aluminio, puertas de vidrio templado. Expertos en Lima.",
     url: "https://inversionesfloressac.com",
     siteName: "Inversiones Generales J&R Flores SAC",
     images: [
@@ -31,9 +32,10 @@ export const metadata: Metadata = {
 
   twitter: {
     card: "summary_large_image",
-    title: "Ventanas y mamparas Acusticas PVC en Lima",
+    title:
+      "Ventanas Antiruido | Vidrio Antiruido | Mamparas y Puertas de Vidrio",
     description:
-      "¿Ruido en casa? Instalamos ventanas y mamparas acústicas PVC en Lima. +15 años de experiencia, materiales premium y garantía total.",
+      "Ventanas antiruido, vidrio antiruido, mamparas de vidrio y aluminio, puertas de vidrio templado en Lima.",
     images: ["https://inversionesfloressac.com/HERO01.webp"],
   },
 
@@ -50,6 +52,7 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <>
+      <JsonLd />
       <Hero />
       <SobreNosotros />
       <Diferenciales />

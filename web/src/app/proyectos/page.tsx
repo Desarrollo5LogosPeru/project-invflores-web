@@ -4,14 +4,14 @@ import { ProjectsGrid } from "@/components/proyectos/ProjectsGrid";
 import { type Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Barandas y pasamanos en acero en Perú - Proyectos Realizados",
+  title: "Proyectos de Ventanas Antiruido y Mamparas de Vidrio | Galería",
   description:
-    "Conozca nuestros proyectos realizados de barandas y pasamanos en acero en Perú. Más de 15 años de experiencia en fabricación e instalación para edificios, viviendas y espacios comerciales.",
+    "Galería de proyectos reales: ventanas antiruido, vidrio antiruido, mamparas de vidrio para sala y fachada, y puertas de vidrio templado. Inspírate para tu espacio.",
 
   openGraph: {
-    title: "Barandas y pasamanos en acero en Perú | Proyectos Realizados",
+    title: "Proyectos de Ventanas Antiruido y Mamparas de Vidrio | Galería",
     description:
-      "Conozca nuestros proyectos realizados de barandas y pasamanos en acero en Perú. Diseños modernos y resistentes con garantía de calidad.",
+      "Galería de proyectos reales: ventanas antiruido, mamparas de vidrio y puertas de vidrio templado. Inspírate para tu espacio en Lima y Perú.",
     url: "https://inversionesfloressac.com/proyectos",
     siteName: "Inversiones Generales J&R Flores SAC",
     images: [
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
         url: "https://inversionesfloressac.com/HERO04-OFF.webp",
         width: 1200,
         height: 630,
-        alt: "Barandas y pasamanos en acero en Perú - Proyectos Realizados",
+        alt: "Proyecto de ventanas antiruido y mamparas de vidrio - Inversiones Flores",
       },
     ],
     locale: "es_PE",
@@ -28,9 +28,9 @@ export const metadata: Metadata = {
 
   twitter: {
     card: "summary_large_image",
-    title: "Barandas y pasamanos en acero en Perú | Proyectos Realizados",
+    title: "Proyectos de Ventanas Antiruido y Mamparas de Vidrio | Galería",
     description:
-      "Conozca nuestros proyectos realizados de barandas y pasamanos en acero en Perú. Calidad y diseño en cada proyecto.",
+      "Galería de proyectos reales: ventanas antiruido, mamparas de vidrio y puertas de vidrio templado.",
     images: ["https://inversionesfloressac.com/HERO04-OFF.webp"],
   },
 

@@ -5,14 +5,15 @@ import { ProductsGrid } from "@/components/productos/ProductsGrid";
 import { type Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Mampara serie 25, 62 y 80 en Perú",
+  title: "Mamparas de Vidrio para Sala y Fachada | Puertas de Vidrio Templado",
   description:
-    "Venta e instalación de mamparas serie 25, 62 y 80 en Perú. Sistemas de acristalamiento modernos para baños, oficinas y espacios comerciales. Alta calidad y garantía.",
+    "Mamparas de vidrio para sala, fachada y baño. Mamparas de vidrio y aluminio. Puertas de vidrio templado. También manejamos series 25, 62 y 80. Instalamos en Perú.",
 
   openGraph: {
-    title: "Mampara serie 25, 62 y 80 en Perú",
+    title:
+      "Mamparas de Vidrio para Sala y Fachada | Puertas de Vidrio Templado",
     description:
-      "Venta e instalación de mamparas serie 25, 62 y 80 en Perú. Sistemas de acristalamiento modernos para baños, oficinas y espacios comerciales.",
+      "Mamparas de vidrio para sala, fachada y baño. Mamparas de vidrio y aluminio. Puertas de vidrio templado. Instalamos en Perú.",
     url: "https://inversionesfloressac.com/productos",
     siteName: "Inversiones Generales J&R Flores SAC",
     images: [
@@ -20,7 +21,7 @@ export const metadata: Metadata = {
         url: "https://inversionesfloressac.com/HERO03.webp",
         width: 1200,
         height: 630,
-        alt: "Mampara serie 25, 62 y 80 en Perú",
+        alt: "Mamparas de vidrio para sala y puertas de vidrio templado - Inversiones Flores",
       },
     ],
     locale: "es_PE",
@@ -29,9 +30,10 @@ export const metadata: Metadata = {
 
   twitter: {
     card: "summary_large_image",
-    title: "Mampara serie 25, 62 y 80 en Perú",
+    title:
+      "Mamparas de Vidrio para Sala y Fachada | Puertas de Vidrio Templado",
     description:
-      "Venta e instalación de mamparas serie 25, 62 y 80 en Perú. Calidad premium y garantía.",
+      "Mamparas de vidrio para sala, fachada y baño. Puertas de vidrio templado en Perú.",
     images: ["https://inversionesfloressac.com/HERO03.webp"],
   },
 

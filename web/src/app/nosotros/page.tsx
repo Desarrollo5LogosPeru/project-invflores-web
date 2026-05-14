@@ -6,14 +6,15 @@ import { NosotrosValores } from "@/components/nosotros/NosotrosValores";
 import { type Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Puertas de ducha en Lima - Instalación y Venta",
+  title: "Inversiones Flores | Más de 15 años en Ventanas y Mamparas de Vidrio",
   description:
-    "Instalamos puertas de ducha en Lima. Diseños modernos en vidrio templado, herrajes de calidad y garantía. Más de 15 años de experiencia.",
+    "Conoce a Inversiones Generales J&R Flores SAC. Especialistas en ventanas antiruido, mamparas de vidrio para sala y fachada, y puertas de vidrio templado en Lima y Perú.",
 
   openGraph: {
-    title: "Puertas de ducha en Lima - Instalación y Venta",
+    title:
+      "Inversiones Flores | Más de 15 años en Ventanas y Mamparas de Vidrio",
     description:
-      "Instalamos puertas de ducha en Lima. Diseños modernos, vidrio templado y herrajes de calidad.",
+      "Conoce a Inversiones Generales J&R Flores SAC. Especialistas en ventanas antiruido, mamparas de vidrio y puertas de vidrio templado en Lima y Perú.",
     url: "https://inversionesfloressac.com/nosotros",
     siteName: "Inversiones Generales J&R Flores SAC",
     images: [
@@ -21,7 +22,7 @@ export const metadata: Metadata = {
         url: "https://inversionesfloressac.com/HERO05.webp",
         width: 1200,
         height: 630,
-        alt: "Puertas de ducha en Lima - Instalación y Venta",
+        alt: "Inversiones Flores - Especialistas en vidrio y ventanas antiruido en Lima",
       },
     ],
     locale: "es_PE",
@@ -30,8 +31,10 @@ export const metadata: Metadata = {
 
   twitter: {
     card: "summary_large_image",
-    title: "Puertas de ducha en Lima - Instalación y Venta",
-    description: "Instalamos puertas de ducha en Lima. Calidad y garantía.",
+    title:
+      "Inversiones Flores | Más de 15 años en Ventanas y Mamparas de Vidrio",
+    description:
+      "Conoce a Inversiones Flores. Especialistas en ventanas antiruido, mamparas de vidrio y puertas templadas en Lima.",
     images: ["https://inversionesfloressac.com/HERO05.webp"],
   },
 
